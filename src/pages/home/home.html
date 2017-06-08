@@ -33,7 +33,7 @@
   <ion-row center text-center>
 
     <ion-col >
-      <ion-card  ion-button clear>
+      <ion-card  ion-button clear (click)="onLoadBooks('OT')">
 
 
           <ion-card-content>
@@ -47,10 +47,10 @@
     </ion-col>
 
     <ion-col>
-      <ion-card ion-button clear>
+      <ion-card ion-button clear (click)="onLoadBooks('NT')">
 
           <ion-card-content>
-            <ion-icon name="book"></ion-icon>
+            <ion-icon name="book" ></ion-icon>
             <p>Nuevo Testamento</p>
 
           </ion-card-content>
