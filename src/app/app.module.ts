@@ -9,12 +9,16 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {BooksListPage} from "../pages/books-list/books-list";
 import {BibleService} from "../services/BibleService";
-
+import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-list";
+import { File } from '@ionic-native/file';
+import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    BooksListPage
+    BooksListPage,
+    BookChaptersListPage,
+    ChapterVersesPage
   ],
   imports: [
     BrowserModule,
@@ -25,13 +29,16 @@ import {BibleService} from "../services/BibleService";
   entryComponents: [
     MyApp,
     HomePage,
-    BooksListPage
+    BooksListPage,
+    BookChaptersListPage,
+    ChapterVersesPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BibleService
+    BibleService,
+    File
   ]
 })
 export class AppModule {}

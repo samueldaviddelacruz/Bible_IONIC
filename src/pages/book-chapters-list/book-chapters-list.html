@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+     <p>{{book.name}}
+       <br>
+        <label style="color:gray">capitulos</label>
+     </p>
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let chapter of book.chapters" (click)="onGoToVerses(chapter)">
+
+      {{chapter.chapter}}
+
+    </button>
+  </ion-list>
+</ion-content>

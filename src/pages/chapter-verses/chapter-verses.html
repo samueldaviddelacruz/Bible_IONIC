@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <p>{{bookName}}
+        <br>
+        <label style="color:gray">capitulo {{chapter.chapter}}</label>
+      </p>
+
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+
+<ion-card *ngFor="let verse of verses">
+
+  <ion-card-content [innerHtml]="verse.text">
+
+  </ion-card-content>
+
+</ion-card>
+
+
+
+
+
+
+    <!--<button ion-item >-->
+    <!---->
+      <!---->
+
+    <!--</button>-->
+  </ion-list>
+
+</ion-content>

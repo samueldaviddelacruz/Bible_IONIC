@@ -24,43 +24,66 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding center text-center>
+
+
+
+
+  <ion-card  (click)="onLoadBooks('OT')">
+
+    <button ion-item>
+
+      <ion-card-content text-center>
+        <ion-icon name="book" ></ion-icon>
+        <br>
+
+        Antiguo Testamento
+      </ion-card-content>
+
+    </button>
+
+
+  </ion-card>
 
 
 
 
 
-  <ion-row center text-center>
 
-    <ion-col >
-      <ion-card  ion-button clear (click)="onLoadBooks('OT')">
+  <ion-card  (click)="onLoadBooks('NT')">
 
+        <button ion-item>
 
-          <ion-card-content>
-            <ion-icon name="book"></ion-icon>
-            <p>Antiguo Testamento</p>
-
-          </ion-card-content>
-
-
-      </ion-card>
-    </ion-col>
-
-    <ion-col>
-      <ion-card ion-button clear (click)="onLoadBooks('NT')">
-
-          <ion-card-content>
+          <ion-card-content text-center>
             <ion-icon name="book" ></ion-icon>
-            <p>Nuevo Testamento</p>
+            <br>
 
+            Nuevo Testamento
           </ion-card-content>
 
-      </ion-card>
-    </ion-col>
+        </button>
+
+  </ion-card>
 
 
 
-  </ion-row>
+
+
+
+
+  <!--<ion-card tappable>-->
+    <!--<button ion-item>-->
+      <!--<ion-item  style="background: rgba(0,0,0,0);">-->
+        <!--<h2>Chef</h2>-->
+        <!--<ion-thumbnail item-center>-->
+          <!--aaa-->
+        <!--</ion-thumbnail>-->
+      <!--</ion-item>-->
+      <!--<ion-card-content>-->
+        <!--<p>Text</p>-->
+      <!--</ion-card-content>-->
+    <!--</button>-->
+  <!--</ion-card>-->
 
 
 </ion-content>

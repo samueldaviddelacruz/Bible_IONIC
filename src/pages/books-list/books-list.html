@@ -1,0 +1,31 @@
+
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{title}}</ion-title>
+
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list>
+  <button ion-item *ngFor="let book of books" (click)="onGoToBookChaptersList(book.id)">
+
+    {{book.name}}
+
+
+  </button>
+</ion-list>
+</ion-content>
+
+
