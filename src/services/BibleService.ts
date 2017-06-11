@@ -5,14 +5,14 @@ import {Http} from "@angular/http";
 import 'rxjs/Rx';
 import {Injectable} from "@angular/core";
 //import  localBooks from '../assets/Data/bibleBooks';
-
+import {Storage} from '@ionic/storage';
 import { File } from '@ionic-native/file';
 
 @Injectable()
 export class BibleService{
   books :any= [];
-  verses :any;
-  constructor(private http: Http,private file:File) {
+  verses :any ={};
+  constructor(private http: Http,private file:File,private storage:Storage) {
    // console.log(bibleVerses)
 
 
@@ -23,11 +23,20 @@ export class BibleService{
   }
   async fetchBooks(){
 
+    let storedBooks;
+    storedBooks = await this.storage.get('books');
+    if(storedBooks){
+
+      this.books = storedBooks;
+      return;
+    }
+
     let booksData;
     try{
 
       booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
       this.books = booksData.json();
+      await this.storage.set('books',this.books);
     }catch (error){
       console.log(error)
     }
@@ -37,10 +46,23 @@ export class BibleService{
 
   async fetchVerses(){
 
+    let storedVerses;
+    storedVerses = await this.storage.get('verses');
+    if(storedVerses){
+
+      this.verses  = storedVerses;
+
+      return;
+    }
+
     let versesData;
     try{
       versesData = await this.http.get('assets/Data/bibleVerses.json').toPromise();
+
       this.verses = versesData.json();
+
+      await this.storage.set('verses',this.verses);
+
     }catch(error){
       console.log(error);
     }
@@ -69,29 +91,23 @@ export class BibleService{
 
 
     async getVerses(chapterId:string){
-      if(this.verses){
-        console.log('cache hit');
+
+
+
+      if(this.verses[chapterId]){
+        console.log('cache hit!');
         return this.verses[chapterId];
       }
 
       let versesData;
       try{
-        versesData = await this.http.get('assets/Data/bibleVerses.json').toPromise();
-        this.verses = versesData.json();
+        versesData = await this.http.get(`assets/Data/VersesByChapter/${chapterId}.json`).toPromise();
+       this.verses[chapterId] = versesData.json();
+        console.log(this.verses[chapterId])
       }catch(error){
         console.log(error);
       }
       return this.verses[chapterId]
-
-
-
-     // return this.http.get('assets/Data/bibleVerses.json').map( (response) => {
-     //      console.log(chapterId);
-     //      //console.log(response.json())
-     //      let verses = response.json();
-     //      console.log(verses);
-     //      return verses[chapterId];
-     //   })
 
     }
 

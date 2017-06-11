@@ -12,6 +12,7 @@ import {BibleService} from "../services/BibleService";
 import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-list";
 import { File } from '@ionic-native/file';
 import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
+import {IonicStorageModule} from "@ionic/storage";
 @NgModule({
   declarations: [
     MyApp,
@@ -23,7 +24,8 @@ import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
