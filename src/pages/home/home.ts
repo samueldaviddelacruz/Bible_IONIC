@@ -16,7 +16,7 @@ export class HomePage {
   async ngOnInit(){
 
 
-    await this.bibleService.fetchBooks();
+    //await this.bibleService.fetchBooks();
    // await this.bibleService.fetchVerses();
 
   }

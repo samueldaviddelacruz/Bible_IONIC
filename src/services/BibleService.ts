@@ -72,16 +72,23 @@ export class BibleService{
 
 
     async getBooks(filterCondition){
-      let booksData;
 
-      if(this.books.length > 0){
 
+      let storedBooks;
+      storedBooks = await this.storage.get('books');
+      if (storedBooks) {
+
+        this.books = storedBooks;
         return this.books.filter( filterCondition);
       }
+
+      let booksData;
       try{
 
         booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
+
         this.books = booksData.json();
+        await this.storage.set('books', this.books);
       }catch (error){
         console.log(error)
       }
@@ -102,7 +109,7 @@ export class BibleService{
       let versesData;
       try{
         versesData = await this.http.get(`assets/Data/VersesByChapter/${chapterId}.json`).toPromise();
-       this.verses[chapterId] = versesData.json();
+        this.verses[chapterId] = versesData.json();
         console.log(this.verses[chapterId])
       }catch(error){
         console.log(error);
