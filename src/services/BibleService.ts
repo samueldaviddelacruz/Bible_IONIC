@@ -14,20 +14,29 @@ export class BibleService{
   verses :any ={};
   constructor(private http: Http,private file:File,private storage:Storage) {
    // console.log(bibleVerses)
+    //  let dummyAb = this.freeze({
+    //    id: "La Seguridad Cristiana",
+    //    name: "La Seguridad Cristiana",
+    //    order: "1",
+    //    testament: "AB",
+    //    chapters:[]
+    //    });
 
-
-
-
+    // this.books.push(dummyAb)
 
 
   }
+
+  freeze = (object) => Object.freeze(object)
+
+
   async fetchBooks(){
 
     let storedBooks;
     storedBooks = await this.storage.get('books');
     if(storedBooks){
 
-      this.books = storedBooks;
+      this.books = this.freeze(storedBooks);
       return;
     }
 
@@ -35,7 +44,7 @@ export class BibleService{
     try{
 
       booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
-      this.books = booksData.json();
+      this.books = this.freeze(booksData.json());
       await this.storage.set('books',this.books);
     }catch (error){
       console.log(error)
@@ -74,21 +83,21 @@ export class BibleService{
     async getBooks(filterCondition){
 
 
-      let storedBooks;
-      storedBooks = await this.storage.get('books');
-      if (storedBooks) {
-
-        this.books = storedBooks;
-        return this.books.filter( filterCondition);
-      }
+      // let storedBooks;
+      // storedBooks = await this.storage.get('books');
+      // if (storedBooks) {
+      //
+      //   this.books = this.freeze(storedBooks);
+      //   return this.books.filter( filterCondition);
+      // }
 
       let booksData;
       try{
 
         booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
 
-        this.books = booksData.json();
-        await this.storage.set('books', this.books);
+        this.books = this.freeze(booksData.json());
+        //await this.storage.set('books', this.books);
       }catch (error){
         console.log(error)
       }

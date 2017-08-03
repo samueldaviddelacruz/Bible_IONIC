@@ -25,8 +25,8 @@ export class HomePage {
 
   onLoadBooks(testament:string){
 
-
-    this.navCtrl.push(BooksListPage,{testament});
+    let BookfilterCondition = (book) => book.testament == testament;
+    this.navCtrl.push(BooksListPage, {BookfilterCondition});
 
     //this.menuCtrl.close();
   }

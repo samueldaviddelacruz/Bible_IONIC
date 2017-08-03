@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {BibleService} from "../../services/BibleService";
 
 /**
@@ -8,7 +8,7 @@ import {BibleService} from "../../services/BibleService";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+
 @Component({
   selector: 'page-chapter-verses',
   templateUrl: 'chapter-verses.html',
@@ -34,11 +34,17 @@ export class ChapterVersesPage implements OnInit{
     this.chapter = this.navParams.get('chapter');
     this.bookName = this.navParams.get('bookName');
 
-    this.verses = await this.bibleService.getVerses(this.chapter.id)
-    //   .subscribe((verses) => {
-    //   //console.log(verses)
-    //   this.verses = verses;
-    // })
+    this.verses = await this.bibleService.getVerses(this.chapter.id);
+
+    if (this.chapter.versesRange) {
+      let versesRange = this.chapter.versesRange;
+
+
+      this.verses = this.verses.slice(versesRange.start - 1, versesRange.end);
+      console.log(versesRange);
+    }
+
+
 
   }
 

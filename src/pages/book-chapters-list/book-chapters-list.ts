@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {ChapterVersesPage} from "../chapter-verses/chapter-verses";
 
 
@@ -10,7 +10,7 @@ import {ChapterVersesPage} from "../chapter-verses/chapter-verses";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-book-chapters-list',
   templateUrl: 'book-chapters-list.html',

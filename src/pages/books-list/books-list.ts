@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {BibleService} from "../../services/BibleService";
 import {BookChaptersListPage} from "../book-chapters-list/book-chapters-list";
 
@@ -9,7 +9,7 @@ import {BookChaptersListPage} from "../book-chapters-list/book-chapters-list";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-books-list',
   templateUrl: 'books-list.html',
@@ -27,8 +27,10 @@ export class BooksListPage implements OnInit {
  async ngOnInit(){
     //called after the constructor and called  after the first ngOnChanges()
 
-    let testament = this.navParams.get('testament');
-    this.books = await this.bibleService.getBooks((book) => book.testament == testament);
+   let filterCondition = this.navParams.get('BookfilterCondition');
+
+
+   this.books = await this.bibleService.getBooks(filterCondition);
     console.log(this.books)
   }
 

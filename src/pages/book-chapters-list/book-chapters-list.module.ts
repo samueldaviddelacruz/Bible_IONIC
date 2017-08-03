@@ -4,13 +4,13 @@ import { BookChaptersListPage } from './book-chapters-list';
 
 @NgModule({
   declarations: [
-    BookChaptersListPage,
+    //BookChaptersListPage,
   ],
   imports: [
     IonicPageModule.forChild(BookChaptersListPage),
   ],
   exports: [
-    BookChaptersListPage
+    //BookChaptersListPage
   ]
 })
 export class BookChaptersListPageModule {}
