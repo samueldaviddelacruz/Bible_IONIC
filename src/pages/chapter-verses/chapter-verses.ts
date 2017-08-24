@@ -38,13 +38,16 @@ export class ChapterVersesPage implements OnInit{
 
     if (this.chapter.versesRange) {
       let versesRange = this.chapter.versesRange;
-
-
       this.verses = this.verses.slice(versesRange.start - 1, versesRange.end);
-      console.log(versesRange);
+
     }
 
 
+  }
+
+  getChapterTitle(chapter) {
+
+    return isNaN(chapter.chapter) ? chapter.chapter : `capitulo ${chapter.chapter}`
 
   }
 

@@ -19,9 +19,9 @@
 
 <ion-content padding>
 <ion-list>
-  <button ion-item *ngFor="let book of books" (click)="onGoToBookChaptersList(book.id)">
+  <button ion-item text-wrap *ngFor="let book of books" (click)="onGoToBookChaptersList(book.id)">
 
-    {{book.name}}
+    <b>{{book.name}}</b>
 
 
   </button>
