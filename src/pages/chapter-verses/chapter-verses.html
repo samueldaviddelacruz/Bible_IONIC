@@ -8,33 +8,50 @@
       </p>
 
     </ion-title>
+
   </ion-navbar>
+
 
 </ion-header>
 
 
 <ion-content padding>
 
+  <ion-fab style="margin-top:-2%" *ngIf="WasVerseSelected">
+    <button ion-fab color="light" mini>
+      <ion-icon name="md-share"></ion-icon>
+    </button>
+    <ion-fab-list side="right">
+      <button ion-fab (tap)="ShareVersesOnWhatsapp()">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-facebook"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+
+    </ion-fab-list>
+  </ion-fab>
+  <br>
+
   <ion-list>
 
-<ion-card *ngFor="let verse of verses">
+    <ion-card *ngFor="let verse of verses" (press)="VerseSelected(verse)" (tap)="UnselectVerse(verse)"
+              [ngClass]="{'selected-shadow':verse.isSelected}">
 
-  <ion-card-content [innerHtml]="verse.text">
+      <ion-card-content>
 
+
+        <div [innerHtml]="verse.text">
+
+        </div>
   </ion-card-content>
 
-</ion-card>
 
+    </ion-card>
 
-
-
-
-
-    <!--<button ion-item >-->
-    <!---->
-      <!---->
-
-    <!--</button>-->
   </ion-list>
 
 </ion-content>

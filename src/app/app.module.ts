@@ -13,6 +13,7 @@ import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-li
 import { File } from '@ionic-native/file';
 import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
 import {IonicStorageModule} from "@ionic/storage";
+import {SocialSharing} from '@ionic-native/social-sharing';
 @NgModule({
   declarations: [
     MyApp,
@@ -40,7 +41,8 @@ import {IonicStorageModule} from "@ionic/storage";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BibleService,
-    File
+    File,
+    SocialSharing
   ]
 })
 export class AppModule {}
