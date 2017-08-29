@@ -2,7 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {BibleService} from "../../services/BibleService";
 import {SocialSharing} from '@ionic-native/social-sharing';
-
+import {ToastController} from 'ionic-angular';
+import {Vibration} from '@ionic-native/vibration';
 /**
  * Generated class for the ChapterVersesPage page.
  *
@@ -25,7 +26,9 @@ export class ChapterVersesPage implements OnInit{
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public bibleService: BibleService,
-              private socialSharing: SocialSharing) {
+              private socialSharing: SocialSharing,
+              private toastCtrl: ToastController,
+              private vibration: Vibration) {
 
 
   }
@@ -35,19 +38,60 @@ export class ChapterVersesPage implements OnInit{
 
     try {
       // await this.socialSharing.canShareVia('whatsapp');
-      let whatsappReturn = await this.socialSharing.shareViaWhatsApp('Holaaaa, enviado desde la app!');
+      this.vibration.vibrate(25);
+      let selectedVersesTexts = this.GetSelectedVersesTexts();
+      let whatsappReturn = await this.socialSharing.shareViaWhatsApp(selectedVersesTexts);
       if (whatsappReturn) {
 
         for (let verse of this.verses) {
           verse.isSelected = false;
         }
         this.WasVerseSelected = false;
+
       }
     } catch (err) {
+      let toast = this.toastCtrl.create({
+        message: err.message,
+        duration: 3000,
+        position: 'top'
+      });
+
+      toast.present();
+
       //poner error aqui to show on phone
     }
 
   }
+
+  SeparateVerseNumberFromText(verseText) {
+    let returnText = '';
+    let numbers = '';
+    for (let charIndx in verseText) {
+
+      if (isNaN(verseText[charIndx])) {
+        returnText = numbers + ' ' + verseText.substring(charIndx);
+        //verseText[char] =' '+verseText[char];
+        break;
+      }
+      numbers += verseText[charIndx];
+    }
+
+    return returnText;
+  }
+
+  GetSelectedVersesTexts() {
+
+    return this.verses.filter((verse) => verse.isSelected)
+      .reduce((versestexts, verse) => {
+
+        let formattedCleanText = this.SeparateVerseNumberFromText(verse.cleanText);
+        let formattedVerse = `${verse.reference}\n${formattedCleanText}\n`;
+
+        return versestexts + formattedVerse + '\n';
+      }, '')
+
+  }
+
 
   isNoVerseSelected() {
     return this.verses.every((verse) => {
@@ -56,10 +100,14 @@ export class ChapterVersesPage implements OnInit{
   }
 
 
-  VerseSelected(verse) {
+  SelectVerse(verse) {
+    if (!verse.isSelected) {
+      this.vibration.vibrate(25);
+    }
 
     verse.isSelected = true;
     this.WasVerseSelected = true;
+
 
   }
 

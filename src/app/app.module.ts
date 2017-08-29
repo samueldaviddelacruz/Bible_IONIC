@@ -11,9 +11,11 @@ import {BooksListPage} from "../pages/books-list/books-list";
 import {BibleService} from "../services/BibleService";
 import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-list";
 import { File } from '@ionic-native/file';
+import {Vibration} from '@ionic-native/vibration';
 import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialSharing} from '@ionic-native/social-sharing';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -42,7 +44,8 @@ import {SocialSharing} from '@ionic-native/social-sharing';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BibleService,
     File,
-    SocialSharing
+    SocialSharing,
+    Vibration
   ]
 })
 export class AppModule {}

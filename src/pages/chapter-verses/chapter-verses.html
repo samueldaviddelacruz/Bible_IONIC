@@ -38,7 +38,7 @@
 
   <ion-list>
 
-    <ion-card *ngFor="let verse of verses" (press)="VerseSelected(verse)" (tap)="UnselectVerse(verse)"
+    <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
               [ngClass]="{'selected-shadow':verse.isSelected}">
 
       <ion-card-content>
