@@ -4,6 +4,7 @@ import {BibleService} from "../../services/BibleService";
 import {SocialSharing} from '@ionic-native/social-sharing';
 import {ToastController} from 'ionic-angular';
 import {Vibration} from '@ionic-native/vibration';
+import {SocialSharingService} from "../../services/SocialSharingService";
 /**
  * Generated class for the ChapterVersesPage page.
  *
@@ -28,39 +29,37 @@ export class ChapterVersesPage implements OnInit{
               public bibleService: BibleService,
               private socialSharing: SocialSharing,
               private toastCtrl: ToastController,
-              private vibration: Vibration) {
+              private vibration: Vibration,
+              public socialSharingService: SocialSharingService) {
+  }
 
+
+  async WhatsAppStrategy(verses) {
+
+    this.vibration.vibrate(25);
+    let selectedVersesTexts = this.GetSelectedVersesTexts();
+    await this.socialSharing.shareViaWhatsApp(selectedVersesTexts);
+
+    for (let verse of verses) {
+      verse.isSelected = false;
+    }
 
   }
 
-  async ShareVersesOnWhatsapp() {
+
+  async ShareVerses() {
     //share logic here
+    let selectedVersesTexts = this.bibleService.GetSelectedVersesTexts(this.verses);
+    await this.socialSharingService.Share(selectedVersesTexts);
+    this.UnselectAllVerses();
+    this.WasVerseSelected = false;
 
-    try {
-      // await this.socialSharing.canShareVia('whatsapp');
-      this.vibration.vibrate(25);
-      let selectedVersesTexts = this.GetSelectedVersesTexts();
-      let whatsappReturn = await this.socialSharing.shareViaWhatsApp(selectedVersesTexts);
-      if (whatsappReturn) {
+  }
 
-        for (let verse of this.verses) {
-          verse.isSelected = false;
-        }
-        this.WasVerseSelected = false;
-
-      }
-    } catch (err) {
-      let toast = this.toastCtrl.create({
-        message: err.message,
-        duration: 3000,
-        position: 'top'
-      });
-
-      toast.present();
-
-      //poner error aqui to show on phone
+  UnselectAllVerses() {
+    for (let verse of this.verses) {
+      verse.isSelected = false;
     }
-
   }
 
   SeparateVerseNumberFromText(verseText) {

@@ -9,12 +9,15 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {BooksListPage} from "../pages/books-list/books-list";
 import {BibleService} from "../services/BibleService";
+
 import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-list";
 import { File } from '@ionic-native/file';
 import {Vibration} from '@ionic-native/vibration';
 import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialSharing} from '@ionic-native/social-sharing';
+import {SocialSharingService} from "../services/SocialSharingService";
+
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import {SocialSharing} from '@ionic-native/social-sharing';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BibleService,
+    SocialSharingService,
     File,
     SocialSharing,
     Vibration

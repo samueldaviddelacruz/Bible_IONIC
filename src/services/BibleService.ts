@@ -6,26 +6,18 @@ import 'rxjs/Rx';
 import {Injectable} from "@angular/core";
 //import  localBooks from '../assets/Data/bibleBooks';
 import {Storage} from '@ionic/storage';
-import { File } from '@ionic-native/file';
+
 
 @Injectable()
 export class BibleService{
   books :any= [];
   verses :any ={};
-  constructor(private http: Http,private file:File,private storage:Storage) {
-   // console.log(bibleVerses)
-    //  let dummyAb = this.freeze({
-    //    id: "La Seguridad Cristiana",
-    //    name: "La Seguridad Cristiana",
-    //    order: "1",
-    //    testament: "AB",
-    //    chapters:[]
-    //    });
 
-    // this.books.push(dummyAb)
+  constructor(private http: Http, private storage: Storage) {
 
 
   }
+
 
   freeze = (object) => Object.freeze(object)
 
@@ -139,6 +131,36 @@ export class BibleService{
       })
 
     }
+
+
+  SeparateVerseNumberFromText(verseText) {
+    let returnText = '';
+    let numbers = '';
+    for (let charIndx in verseText) {
+
+      if (isNaN(verseText[charIndx])) {
+        returnText = numbers + ' ' + verseText.substring(charIndx);
+        //verseText[char] =' '+verseText[char];
+        break;
+      }
+      numbers += verseText[charIndx];
+    }
+
+    return returnText;
+  }
+
+  GetSelectedVersesTexts(verses) {
+
+    return verses.filter((verse) => verse.isSelected)
+      .reduce((versestexts, verse) => {
+
+        let formattedCleanText = this.SeparateVerseNumberFromText(verse.cleanText);
+        let formattedVerse = `${verse.reference}\n${formattedCleanText}\n`;
+
+        return versestexts + formattedVerse + '\n';
+      }, '')
+
+  }
 
 
 }
