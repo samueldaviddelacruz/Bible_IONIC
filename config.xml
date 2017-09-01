@@ -81,6 +81,7 @@
   <platform name="browser">
     <preference name="SplashScreen" value="resources/splash.png"/>
   </platform>
+  <allow-navigation href="http://192.168.137.25:8100"/>
     <engine name="android" spec="^6.2.3" />
   <engine name="browser" spec="^4.1.0"/>
   <plugin name="cordova-plugin-console" spec="^1.0.7"/>

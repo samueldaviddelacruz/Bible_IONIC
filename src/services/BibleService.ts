@@ -86,7 +86,7 @@ export class BibleService{
       let booksData;
       try{
 
-        booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
+        booksData = await this.http.get('assets/Data/bibleBooks_dev.json').toPromise();
 
         this.books = this.freeze(booksData.json());
         //await this.storage.set('books', this.books);
