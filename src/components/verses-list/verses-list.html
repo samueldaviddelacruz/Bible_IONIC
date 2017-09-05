@@ -1,0 +1,19 @@
+<!-- Generated template for the VersesListComponent component -->
+<ion-list>
+
+  <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
+            [ngClass]="{'selected-shadow':verse.isSelected}">
+
+    <ion-card-content>
+
+
+      <div [innerHtml]="verse.text">
+
+      </div>
+
+    </ion-card-content>
+
+
+  </ion-card>
+
+</ion-list>

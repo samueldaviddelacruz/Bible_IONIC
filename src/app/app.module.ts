@@ -11,12 +11,14 @@ import {BooksListPage} from "../pages/books-list/books-list";
 import {BibleService} from "../services/BibleService";
 
 import {BookChaptersListPage} from "../pages/book-chapters-list/book-chapters-list";
-import { File } from '@ionic-native/file';
+import {IonicStorageModule} from '@ionic/storage';
 import {Vibration} from '@ionic-native/vibration';
 import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
-import {IonicStorageModule} from "@ionic/storage";
+
 import {SocialSharing} from '@ionic-native/social-sharing';
 import {SocialSharingService} from "../services/SocialSharingService";
+import {SearchPage} from "../pages/search/search";
+import {VersesListComponent} from '../components/verses-list/verses-list';
 
 
 @NgModule({
@@ -25,13 +27,16 @@ import {SocialSharingService} from "../services/SocialSharingService";
     HomePage,
     BooksListPage,
     BookChaptersListPage,
-    ChapterVersesPage
+    ChapterVersesPage,
+    SearchPage,
+    VersesListComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +44,9 @@ import {SocialSharingService} from "../services/SocialSharingService";
     HomePage,
     BooksListPage,
     BookChaptersListPage,
-    ChapterVersesPage
+    ChapterVersesPage,
+    SearchPage,
+    VersesListComponent
   ],
   providers: [
     StatusBar,
@@ -47,7 +54,6 @@ import {SocialSharingService} from "../services/SocialSharingService";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BibleService,
     SocialSharingService,
-    File,
     SocialSharing,
     Vibration
   ]

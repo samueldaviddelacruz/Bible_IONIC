@@ -7,81 +7,55 @@ import {Injectable} from "@angular/core";
 //import  localBooks from '../assets/Data/bibleBooks';
 import {Storage} from '@ionic/storage';
 
+//import {Observable} from "rxjs/Observable";
+import {LoadingController, ToastController} from "ionic-angular";
 
 @Injectable()
 export class BibleService{
   books :any= [];
   verses :any ={};
 
-  constructor(private http: Http, private storage: Storage) {
-
-
-  }
-
-
-  freeze = (object) => Object.freeze(object)
-
-
-  async fetchBooks(){
-
-    let storedBooks;
-    storedBooks = await this.storage.get('books');
-    if(storedBooks){
-
-      this.books = this.freeze(storedBooks);
-      return;
-    }
-
-    let booksData;
-    try{
-
-      booksData = await this.http.get('assets/Data/bibleBooks.json').toPromise();
-      this.books = this.freeze(booksData.json());
-      await this.storage.set('books',this.books);
-    }catch (error){
-      console.log(error)
-    }
+  constructor(private http: Http, private toast: ToastController, private storage: Storage, public loadingCtrl: LoadingController) {
 
   }
 
 
-  async fetchVerses(){
+  freeze = (object) => Object.freeze(object);
 
-    let storedVerses;
-    storedVerses = await this.storage.get('verses');
-    if(storedVerses){
 
-      this.verses  = storedVerses;
-
+  async CacheAllVerses() {
+    let test_chapter_id = 'spa-RVR1960:Gen.1';
+    let cachedVerses = await this.storage.get(test_chapter_id);
+    if (cachedVerses) {
       return;
     }
 
-    let versesData;
-    try{
-      versesData = await this.http.get('assets/Data/bibleVerses.json').toPromise();
 
-      this.verses = versesData.json();
+    let loading = this.loadingCtrl.create({
+      content: 'Configurando.. Por favor Espere..'
+    });
 
-      await this.storage.set('verses',this.verses);
+    loading.present();
 
-    }catch(error){
+    let chapters;
+    try {
+      let response = await this.http.get(`assets/Data/BibleVerses_min.json`).toPromise();
+      chapters = response.json()
+      for (let chapterId in chapters) {
+
+
+        this.storage.set(chapterId, chapters[chapterId]);
+        console.log(chapterId)
+      }
+      loading.dismiss();
+    } catch (error) {
       console.log(error);
+      loading.dismiss();
     }
 
-  }
-
-
-
+    }
     async getBooks(filterCondition){
 
-
-      // let storedBooks;
-      // storedBooks = await this.storage.get('books');
-      // if (storedBooks) {
-      //
-      //   this.books = this.freeze(storedBooks);
-      //   return this.books.filter( filterCondition);
-      // }
 
       let booksData;
       try{
@@ -94,28 +68,69 @@ export class BibleService{
         console.log(error)
       }
 
+      if (!filterCondition) {
+        return this.books;
+      }
+
       return this.books.filter( filterCondition);
     }
 
 
-    async getVerses(chapterId:string){
+  async searchVerses(searchterm, bookTestament) {
+
+    let BookfilterCondition = (book) => book.testament == bookTestament;
+    this.books = await this.getBooks(BookfilterCondition);
+    let searchedVerses = [];
+    for (let book of this.books) {
+      let chapters = book.chapters;
+
+      for (let chap of chapters) {
+        let verses; //await this.bibleService.getVersesByChapterId(chap.id);
+
+        verses = await this.getVersesByChapterId(chap.id);
+
+        for (let verse of verses) {
 
 
+          if (verse.cleanText.toLowerCase().includes(searchterm.toLowerCase())) {
+            //console.log(verse)
+            searchedVerses.push(verse);
+          }
 
-      if(this.verses[chapterId]){
-        console.log('cache hit!');
-        return this.verses[chapterId];
+        }
       }
+    }
 
-      let versesData;
-      try{
-        versesData = await this.http.get(`assets/Data/VersesByChapter/${chapterId}.json`).toPromise();
-        this.verses[chapterId] = versesData.json();
-        console.log(this.verses[chapterId])
-      }catch(error){
-        console.log(error);
-      }
-      return this.verses[chapterId]
+    return searchedVerses;
+  }
+
+
+  async getVersesByChapterId(chapterId: string) {
+    let cachedVerses = await this.storage.get(chapterId);
+    if (cachedVerses) {
+      return cachedVerses;
+    } else {
+
+      this.CacheAllVerses();
+      return this.getVersesByChapterId(chapterId)
+    }
+
+
+    // if(this.verses[chapterId]){
+    //   //console.log('cache hit!');
+    //   return this.verses[chapterId];
+    // }
+    //
+    // let versesData;
+    // try{
+    //   versesData = await this.http.get(`assets/Data/VersesByChapter/${chapterId}.json`).toPromise();
+    //
+    //   this.verses[chapterId] = versesData.json();
+    //   //console.log(this.verses[chapterId])
+    // }catch(error){
+    //   console.log(error);
+    // }
+    // return this.verses[chapterId]
 
     }
 
@@ -133,7 +148,7 @@ export class BibleService{
     }
 
 
-  SeparateVerseNumberFromText(verseText) {
+  private SeparateVerseNumberFromText(verseText) {
     let returnText = '';
     let numbers = '';
     for (let charIndx in verseText) {

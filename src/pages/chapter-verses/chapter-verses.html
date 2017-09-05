@@ -17,42 +17,44 @@
 
 <ion-content padding>
 
-  <ion-fab style="margin-top:-2%" *ngIf="WasVerseSelected">
-    <button ion-fab color="light" mini (tap)="ShareVerses()">
-      <ion-icon name="md-share"></ion-icon>
-    </button>
-
-    <!--<ion-fab-list side="right">-->
-    <!--<button ion-fab (tap)="ShareOnSocialMedia(socialSharingService.SocialNetworks.WHATSAPP)">-->
-    <!--<ion-icon name="logo-whatsapp"></ion-icon>-->
-    <!--</button>-->
-    <!--<button ion-fab>-->
-    <!--<ion-icon name="logo-facebook"></ion-icon>-->
-    <!--</button>-->
-    <!--<button ion-fab>-->
-    <!--<ion-icon name="logo-twitter"></ion-icon>-->
+  <!--<ion-fab style="margin-top:-2%" *ngIf="WasVerseSelected">-->
+  <!--<button ion-fab color="light" mini (tap)="ShareVerses()">-->
+  <!--<ion-icon name="md-share"></ion-icon>-->
     <!--</button>-->
 
-    <!--</ion-fab-list>-->
-  </ion-fab>
-  <br>
+  <!--&lt;!&ndash;<ion-fab-list side="right">&ndash;&gt;-->
+  <!--&lt;!&ndash;<button ion-fab (tap)="ShareOnSocialMedia(socialSharingService.SocialNetworks.WHATSAPP)">&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-icon name="logo-whatsapp"></ion-icon>&ndash;&gt;-->
+  <!--&lt;!&ndash;</button>&ndash;&gt;-->
+  <!--&lt;!&ndash;<button ion-fab>&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-icon name="logo-facebook"></ion-icon>&ndash;&gt;-->
+  <!--&lt;!&ndash;</button>&ndash;&gt;-->
+  <!--&lt;!&ndash;<button ion-fab>&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-icon name="logo-twitter"></ion-icon>&ndash;&gt;-->
+  <!--&lt;!&ndash;</button>&ndash;&gt;-->
 
-  <ion-list>
+  <!--&lt;!&ndash;</ion-fab-list>&ndash;&gt;-->
+  <!--</ion-fab>-->
+  <!--<br>-->
 
-    <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
-              [ngClass]="{'selected-shadow':verse.isSelected}">
+  <!--<ion-list>-->
 
-      <ion-card-content>
+  <!--<ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"-->
+  <!--[ngClass]="{'selected-shadow':verse.isSelected}">-->
 
-
-        <div [innerHtml]="verse.text">
-
-        </div>
-  </ion-card-content>
+  <!--<ion-card-content>-->
 
 
-    </ion-card>
+  <!--<div [innerHtml]="verse.text">-->
 
-  </ion-list>
+  <!--</div>-->
+  <!--</ion-card-content>-->
 
+
+  <!--</ion-card>-->
+
+  <!--</ion-list>-->
+
+
+  <verses-list [verses]="verses"></verses-list>
 </ion-content>

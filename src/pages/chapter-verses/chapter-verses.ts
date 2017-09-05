@@ -34,105 +34,63 @@ export class ChapterVersesPage implements OnInit{
   }
 
 
-  async WhatsAppStrategy(verses) {
-
-    this.vibration.vibrate(25);
-    let selectedVersesTexts = this.GetSelectedVersesTexts();
-    await this.socialSharing.shareViaWhatsApp(selectedVersesTexts);
-
-    for (let verse of verses) {
-      verse.isSelected = false;
-    }
-
-  }
-
-
-  async ShareVerses() {
-    //share logic here
-    let selectedVersesTexts = this.bibleService.GetSelectedVersesTexts(this.verses);
-    await this.socialSharingService.Share(selectedVersesTexts);
-    this.UnselectAllVerses();
-    this.WasVerseSelected = false;
-
-  }
-
-  UnselectAllVerses() {
-    for (let verse of this.verses) {
-      verse.isSelected = false;
-    }
-  }
-
-  SeparateVerseNumberFromText(verseText) {
-    let returnText = '';
-    let numbers = '';
-    for (let charIndx in verseText) {
-
-      if (isNaN(verseText[charIndx])) {
-        returnText = numbers + ' ' + verseText.substring(charIndx);
-        //verseText[char] =' '+verseText[char];
-        break;
-      }
-      numbers += verseText[charIndx];
-    }
-
-    return returnText;
-  }
-
-  GetSelectedVersesTexts() {
-
-    return this.verses.filter((verse) => verse.isSelected)
-      .reduce((versestexts, verse) => {
-
-        let formattedCleanText = this.SeparateVerseNumberFromText(verse.cleanText);
-        let formattedVerse = `${verse.reference}\n${formattedCleanText}\n`;
-
-        return versestexts + formattedVerse + '\n';
-      }, '')
-
-  }
-
-
-  isNoVerseSelected() {
-    return this.verses.every((verse) => {
-      return !verse.isSelected;
-    })
-  }
-
-
-  SelectVerse(verse) {
-    if (!verse.isSelected) {
-      this.vibration.vibrate(25);
-    }
-
-    verse.isSelected = true;
-    this.WasVerseSelected = true;
-
-
-  }
-
-
-  UnselectVerse(verse) {
-
-
-    verse.isSelected = false;
-    if (this.isNoVerseSelected()) {
-      this.WasVerseSelected = false;
-    }
-  }
+  // async ShareVerses() {
+  //   //share logic here
+  //   let selectedVersesTexts = this.bibleService.GetSelectedVersesTexts(this.verses);
+  //   await this.socialSharingService.Share(selectedVersesTexts);
+  //   this.UnselectAllVerses();
+  //   this.WasVerseSelected = false;
+  //
+  // }
+  //
+  // UnselectAllVerses() {
+  //   for (let verse of this.verses) {
+  //     verse.isSelected = false;
+  //   }
+  // }
+  //
+  //
+  //
+  // isNoVerseSelected() {
+  //   return this.verses.every((verse) => {
+  //     return !verse.isSelected;
+  //   })
+  // }
+  //
+  //
+  // SelectVerse(verse) {
+  //   if (!verse.isSelected) {
+  //     this.vibration.vibrate(25);
+  //   }
+  //
+  //   verse.isSelected = true;
+  //   this.WasVerseSelected = true;
+  //
+  //
+  // }
+  //
+  //
+  // UnselectVerse(verse) {
+  //
+  //
+  //   verse.isSelected = false;
+  //   if (this.isNoVerseSelected()) {
+  //     this.WasVerseSelected = false;
+  //   }
+  // }
 
   async ngOnInit(){
     //called after the constructor and called  after the first ngOnChanges()
     this.chapter = this.navParams.get('chapter');
     this.bookName = this.navParams.get('bookName');
 
-    this.verses = await this.bibleService.getVerses(this.chapter.id);
+    this.verses = await this.bibleService.getVersesByChapterId(this.chapter.id);
 
     if (this.chapter.versesRange) {
       let versesRange = this.chapter.versesRange;
       this.verses = this.verses.slice(versesRange.start - 1, versesRange.end);
 
     }
-
 
   }
 

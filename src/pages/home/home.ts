@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {BooksListPage} from "../books-list/books-list";
 import {BibleService} from "../../services/BibleService";
+import {SearchPage} from "../search/search";
 
 @Component({
   selector: 'page-home',
@@ -17,10 +18,13 @@ export class HomePage {
 
 
     //await this.bibleService.fetchBooks();
-   // await this.bibleService.fetchVerses();
+    await this.bibleService.CacheAllVerses();
 
   }
 
+  GoToSearch() {
+    this.navCtrl.push(SearchPage);
+  }
 
 
   onLoadBooks(testament:string){
