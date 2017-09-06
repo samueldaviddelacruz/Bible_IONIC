@@ -1,0 +1,134 @@
+<!--
+  Generated template for the SearchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Buscar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--<ion-grid>-->
+  <!--<ion-row>-->
+  <!--<ion-col col-11>-->
+  <!--&lt;!&ndash;<ion-input [(ngModel)]="searchTerm" type="text" placeholder="Search..."></ion-input>&ndash;&gt;-->
+  <!---->
+  <!--</ion-col>-->
+
+  <!--&lt;!&ndash;<ion-col (click)="searchVerses()" col-1>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;<button ion-button clear icon-only>&ndash;&gt;-->
+  <!--&lt;!&ndash;<ion-icon color="dark" name="search"></ion-icon>&ndash;&gt;-->
+  <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;</ion-col>&ndash;&gt;-->
+
+
+  <!--</ion-row>-->
+  <!--</ion-grid>-->
+  <ion-list>
+    <ion-item>
+      <ion-searchbar (ionInput)="searchVerses($event)" placeholder="Buscar.." debounce="500"></ion-searchbar>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Buscar en :</ion-label>
+      <ion-select [(ngModel)]="bookTestament">
+        <ion-option value="all">Toda la biblia</ion-option>
+        <ion-option value="NT">Nuevo Testamento</ion-option>
+        <ion-option value="OT">Antiguo Testamento</ion-option>
+        <ion-option value="EP">El Pentateuco</ion-option>
+        <ion-option value="LH">Libros historicos</ion-option>
+        <ion-option value="LP">Libros Poéticos</ion-option>
+        <ion-option value="PM">Profetas Mayores</ion-option>
+        <ion-option value="PMN">Profetas Menores</ion-option>
+        <ion-option value="EV">Los Evangelios</ion-option>
+        <!--<ion-option value="snes">SNES</ion-option>-->
+      </ion-select>
+
+    </ion-item>
+  </ion-list>
+
+
+  <!--<ion-list [virtualScroll]="searchedVerses" [hidden]="!isNotNullOrEmpty(searchTerm)">-->
+
+  <!--<ion-item *virtualItem="let verse">-->
+  <!--<p><b>{{verse.reference}}</b></p>-->
+  <!--<br>-->
+
+  <!--<div [innerHtml]="highlightFoundWords(verse.text)" text-wrap>-->
+  <!--&lt;!&ndash;<p>&ndash;&gt;-->
+  <!--&lt;!&ndash;{{verse.cleanText}}&ndash;&gt;-->
+
+  <!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+
+  <!--</div>-->
+
+  <!--&lt;!&ndash;{{verse.cleanText}}&ndash;&gt;-->
+
+
+  <!--</ion-item>-->
+
+  <!--</ion-list>-->
+  <ion-fab style="margin-top:32%" *ngIf="WasVerseSelected">
+    <button ion-fab color="light" mini (tap)="ShareVerses()">
+      <ion-icon name="md-share"></ion-icon>
+    </button>
+
+  </ion-fab>
+  <ion-list [virtualScroll]="verses" [hidden]="!isNotNullOrEmpty(searchTerm)">
+
+    <ion-card *virtualItem="let verse" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
+              [ngClass]="{'selected-shadow':verse.isSelected}">
+
+      <ion-card-content>
+        <p><b>{{verse.reference}}</b></p>
+        <br>
+
+        <div [innerHtml]="highlightFoundWords(verse.text)">
+
+        </div>
+
+      </ion-card-content>
+
+
+    </ion-card>
+
+  </ion-list>
+
+  <!--<verses-list [verses]="searchedVerses" [CardDisplay]="false" [searchTerm]="searchTerm"></verses-list>-->
+  <!--<ion-list [virtualScroll]="searchedVerses">-->
+
+  <!--<ion-card *virtualItem="let verse" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"-->
+  <!--[ngClass]="{'selected-shadow':verse.isSelected}">-->
+
+  <!--<ion-card-content>-->
+
+
+  <!--<div>-->
+  <!--{{verse.cleanText}}-->
+  <!--</div>-->
+
+  <!--</ion-card-content>-->
+
+
+  <!--</ion-card>-->
+
+  <!--</ion-list>-->
+
+
+  <!--<ion-list>-->
+  <!--<ion-item *ngFor="let vers of items">-->
+  <!--{{'hola'}}-->
+  <!--</ion-item>-->
+  <!--</ion-list>-->
+
+</ion-content>
