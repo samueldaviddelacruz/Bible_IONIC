@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {SocialSharingService} from "../../services/SocialSharingService";
 import {Vibration} from "@ionic-native/vibration";
 import {BibleService} from "../../services/BibleService";
-import {NavController, NavParams} from "ionic-angular";
+
 
 /**
  * Generated class for the VersesListComponent component.
@@ -24,10 +24,8 @@ export class VersesListComponent {
 
   WasVerseSelected: boolean = false;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public bibleService: BibleService,
-              private vibration: Vibration,
+  constructor(public bibleService: BibleService,
+              public vibration: Vibration,
               public socialSharingService: SocialSharingService) {
 
     console.log(this.verses)
@@ -58,13 +56,13 @@ export class VersesListComponent {
 
 
   SelectVerse(verse) {
+
     if (!verse.isSelected) {
       this.vibration.vibrate(25);
     }
 
     verse.isSelected = true;
     this.WasVerseSelected = true;
-
 
   }
 
@@ -77,5 +75,6 @@ export class VersesListComponent {
       this.WasVerseSelected = false;
     }
   }
+
 
 }

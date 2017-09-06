@@ -1,4 +1,24 @@
 <!-- Generated template for the VersesListComponent component -->
+
+<ion-fab style="margin-top:-2%" *ngIf="WasVerseSelected">
+  <button ion-fab color="light" mini (tap)="ShareVerses()">
+    <ion-icon name="md-share"></ion-icon>
+  </button>
+
+  <!--<ion-fab-list side="right">-->
+  <!--<button ion-fab (tap)="ShareOnSocialMedia(socialSharingService.SocialNetworks.WHATSAPP)">-->
+  <!--<ion-icon name="logo-whatsapp"></ion-icon>-->
+  <!--</button>-->
+  <!--<button ion-fab>-->
+  <!--<ion-icon name="logo-facebook"></ion-icon>-->
+  <!--</button>-->
+  <!--<button ion-fab>-->
+  <!--<ion-icon name="logo-twitter"></ion-icon>-->
+  <!--</button>-->
+
+  <!--</ion-fab-list>-->
+</ion-fab>
+<br>
 <ion-list>
 
   <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
@@ -17,3 +37,11 @@
   </ion-card>
 
 </ion-list>
+
+
+
+
+
+
+
+
