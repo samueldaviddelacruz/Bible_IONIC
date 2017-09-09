@@ -34,58 +34,19 @@ export class ChapterVersesPage implements OnInit{
   }
 
 
-  // async ShareVerses() {
-  //   //share logic here
-  //   let selectedVersesTexts = this.bibleService.GetSelectedVersesTexts(this.verses);
-  //   await this.socialSharingService.Share(selectedVersesTexts);
-  //   this.UnselectAllVerses();
-  //   this.WasVerseSelected = false;
-  //
-  // }
-  //
-  // UnselectAllVerses() {
-  //   for (let verse of this.verses) {
-  //     verse.isSelected = false;
-  //   }
-  // }
-  //
-  //
-  //
-  // isNoVerseSelected() {
-  //   return this.verses.every((verse) => {
-  //     return !verse.isSelected;
-  //   })
-  // }
-  //
-  //
-  // SelectVerse(verse) {
-  //   if (!verse.isSelected) {
-  //     this.vibration.vibrate(25);
-  //   }
-  //
-  //   verse.isSelected = true;
-  //   this.WasVerseSelected = true;
-  //
-  //
-  // }
-  //
-  //
-  // UnselectVerse(verse) {
-  //
-  //
-  //   verse.isSelected = false;
-  //   if (this.isNoVerseSelected()) {
-  //     this.WasVerseSelected = false;
-  //   }
-  // }
 
   async ngOnInit(){
     //called after the constructor and called  after the first ngOnChanges()
+
+
+  }
+
+  async ionViewWillEnter() {
     this.chapter = this.navParams.get('chapter');
     this.bookName = this.navParams.get('bookName');
 
     this.verses = await this.bibleService.getVersesByChapterId(this.chapter.id);
-
+    //console.log(this.verses)
     if (this.chapter.versesRange) {
       let versesRange = this.chapter.versesRange;
       this.verses = this.verses.slice(versesRange.start - 1, versesRange.end);

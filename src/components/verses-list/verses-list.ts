@@ -20,7 +20,7 @@ export class VersesListComponent {
   bookName: string;
 
   @Input()
-  verses: any[] = [{cleanText: "Loading Verses...."}];
+  verses: any[] = [];
 
   WasVerseSelected: boolean = false;
 
@@ -28,8 +28,18 @@ export class VersesListComponent {
               public vibration: Vibration,
               public socialSharingService: SocialSharingService) {
 
-    console.log(this.verses)
+
   }
+
+
+  ngOnChanges() {
+
+    if (this.verses) {
+      this.WasVerseSelected = this.isAnyVerseSelected();
+      console.log('hey')
+    }
+  }
+
 
 
   async ShareVerses() {
@@ -38,13 +48,21 @@ export class VersesListComponent {
     await this.socialSharingService.Share(selectedVersesTexts);
     this.UnselectAllVerses();
     this.WasVerseSelected = false;
-
+    this.bibleService.UpdateChapterVerses(this.verses)
   }
 
   UnselectAllVerses() {
     for (let verse of this.verses) {
       verse.isSelected = false;
     }
+
+  }
+
+  isAnyVerseSelected() {
+    //console.log(this.verses.filter(verse => verse.isSelected))
+
+    //console.log(versesLengt)
+    return this.verses.filter(verse => verse.isSelected).length > 0;
   }
 
 
@@ -52,8 +70,8 @@ export class VersesListComponent {
     return this.verses.every((verse) => {
       return !verse.isSelected;
     })
-  }
 
+  }
 
   SelectVerse(verse) {
 
@@ -63,10 +81,20 @@ export class VersesListComponent {
 
     verse.isSelected = true;
     this.WasVerseSelected = true;
-
+    this.bibleService.UpdateChapterVerses(this.verses)
   }
 
 
+  AddVerseToFavorites(verse) {
+
+    if (!verse.isOnFavorites) {
+      verse.isOnFavorites = false;
+    }
+
+    verse.isOnFavorites = !verse.isOnFavorites;
+
+    this.bibleService.UpdateChapterVerses(this.verses)
+  }
   UnselectVerse(verse) {
 
 
@@ -74,6 +102,7 @@ export class VersesListComponent {
     if (this.isNoVerseSelected()) {
       this.WasVerseSelected = false;
     }
+    this.bibleService.UpdateChapterVerses(this.verses)
   }
 
 

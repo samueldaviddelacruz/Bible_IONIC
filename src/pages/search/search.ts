@@ -74,6 +74,8 @@ export class SearchPage extends VersesListComponent {
 
               this.verses.push(verse);
             }
+
+
           }
         }
 

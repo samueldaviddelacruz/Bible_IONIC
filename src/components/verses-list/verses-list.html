@@ -21,10 +21,24 @@
 <br>
 <ion-list>
 
-  <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
-            [ngClass]="{'selected-shadow':verse.isSelected}">
+  <div *ngFor="let verse of verses">
 
-    <ion-card-content>
+
+    <div text-center *ngIf="verse.isSelected">
+
+      <button ion-button clear icon-only *ngIf="verse.isOnFavorites" (tap)="AddVerseToFavorites(verse)">
+        <ion-icon name="star"></ion-icon>
+      </button>
+      <button ion-button clear icon-only *ngIf="!verse.isOnFavorites" (tap)="AddVerseToFavorites(verse)">
+        <ion-icon name="star-outline"></ion-icon>
+      </button>
+
+    </div>
+
+    <ion-card [ngClass]="{'selected-shadow':verse.isSelected}">
+
+
+      <ion-card-content (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)">
 
 
       <div [innerHtml]="verse.text">
@@ -35,6 +49,9 @@
 
 
   </ion-card>
+
+  </div>
+
 
 </ion-list>
 

@@ -22,7 +22,21 @@ export class BibleService{
 
   freeze = (object) => Object.freeze(object);
 
+  async UpdateChapterVerses(verses) {
+    try {
+      let chapterId = verses[0].chapterId;
+      // let ChapterVerses = await this.storage.get(chapterId);
+      //update chapterVerses
 
+      await this.storage.set(chapterId, verses);
+    } catch (err) {
+
+      let toasty = this.toast.create({message: err.message, duration: 3000, position: 'top'})
+      toasty.present()
+    }
+
+
+  }
   async CacheAllVerses() {
     let test_chapter_id = 'spa-RVR1960:Gen.1';
     let cachedVerses = await this.storage.get(test_chapter_id);
@@ -40,12 +54,14 @@ export class BibleService{
     let chapters;
     try {
       let response = await this.http.get(`assets/Data/BibleVerses_min.json`).toPromise();
-      chapters = response.json()
+      chapters = response.json();
       for (let chapterId in chapters) {
 
+        for (let verse of chapters[chapterId]) {
+          verse.chapterId = chapterId;
+        }
 
-        this.storage.set(chapterId, chapters[chapterId]);
-        console.log(chapterId)
+        await this.storage.set(chapterId, chapters[chapterId]);
       }
       loading.dismiss();
     } catch (error) {
@@ -107,6 +123,7 @@ export class BibleService{
 
   async getVersesByChapterId(chapterId: string) {
     let cachedVerses = await this.storage.get(chapterId);
+    //console.log(cachedVerses)
     if (cachedVerses) {
       return cachedVerses;
     } else {
@@ -114,23 +131,6 @@ export class BibleService{
       this.CacheAllVerses();
       return this.getVersesByChapterId(chapterId)
     }
-
-
-    // if(this.verses[chapterId]){
-    //   //console.log('cache hit!');
-    //   return this.verses[chapterId];
-    // }
-    //
-    // let versesData;
-    // try{
-    //   versesData = await this.http.get(`assets/Data/VersesByChapter/${chapterId}.json`).toPromise();
-    //
-    //   this.verses[chapterId] = versesData.json();
-    //   //console.log(this.verses[chapterId])
-    // }catch(error){
-    //   console.log(error);
-    // }
-    // return this.verses[chapterId]
 
     }
 

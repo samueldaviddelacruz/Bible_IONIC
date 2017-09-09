@@ -40,6 +40,7 @@
 
     <ion-item>
       <ion-label>Buscar en :</ion-label>
+
       <ion-select [(ngModel)]="bookTestament">
         <ion-option value="all">Toda la biblia</ion-option>
         <ion-option value="NT">Nuevo Testamento</ion-option>
@@ -84,6 +85,7 @@
     </button>
 
   </ion-fab>
+
   <ion-list [virtualScroll]="verses" [hidden]="!isNotNullOrEmpty(searchTerm)">
 
     <ion-card *virtualItem="let verse" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
