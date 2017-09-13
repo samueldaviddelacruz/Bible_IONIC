@@ -27,7 +27,7 @@ export class BibleService{
       let chapterId = verses[0].chapterId;
       // let ChapterVerses = await this.storage.get(chapterId);
       //update chapterVerses
-
+      //comment
       await this.storage.set(chapterId, verses);
     } catch (err) {
 
