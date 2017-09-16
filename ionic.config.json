@@ -1,6 +1,6 @@
 {
   "name": "Bible_IONIC",
-  "app_id": "",
+  "app_id": "542cab53",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
