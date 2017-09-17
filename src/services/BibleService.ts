@@ -132,17 +132,31 @@ export class BibleService{
 
   async GetFavoriteVerses() {
 
-    let favorites = [];
-    await this.storage.forEach((versesPack) => {
-      //console.log(versesPack)
-      let favsPerChapter = versesPack.filter(verse => verse.isOnFavorites == true)
-      favsPerChapter.forEach(favverse => {
-        console.log(favverse)
-        favorites.push(favverse)
-      })
-
-      // console.log(favoritedVerses)
+    let loading = this.loadingCtrl.create({
+      content: 'Buscando favoritos.. Por favor Espere..'
     });
+
+    loading.present();
+
+    let favorites = [];
+    try {
+      await this.storage.forEach((versesPack) => {
+        //console.log(versesPack)
+        let favsPerChapter = versesPack.filter(verse => verse.isOnFavorites == true)
+        favsPerChapter.forEach(favverse => {
+          console.log(favverse)
+          favorites.push(favverse)
+        })
+
+        // console.log(favoritedVerses)
+      });
+      loading.dismiss();
+    } catch (error) {
+      console.log(error);
+
+      loading.dismiss();
+    }
+
 
 
     return favorites;
