@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Favoritos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+
+  <ion-fab style="margin-top:-2%" *ngIf="WasVerseSelected">
+    <button ion-fab color="light" mini (tap)="ShareVerses()">
+      <ion-icon name="md-share"></ion-icon>
+    </button>
+
+    <!--<ion-fab-list side="right">-->
+    <!--<button ion-fab (tap)="ShareOnSocialMedia(socialSharingService.SocialNetworks.WHATSAPP)">-->
+    <!--<ion-icon name="logo-whatsapp"></ion-icon>-->
+    <!--</button>-->
+    <!--<button ion-fab>-->
+    <!--<ion-icon name="logo-facebook"></ion-icon>-->
+    <!--</button>-->
+    <!--<button ion-fab>-->
+    <!--<ion-icon name="logo-twitter"></ion-icon>-->
+    <!--</button>-->
+
+    <!--</ion-fab-list>-->
+  </ion-fab>
+  <br>
+  <ion-list>
+
+    <ng-container *ngFor="let verse of verses">
+
+      <div *ngIf="verse.isOnFavorites">
+
+
+        <div text-center>
+
+          <button ion-button clear icon-only (tap)="RemoveFromFavorites(verse)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+          <!--<button ion-button clear icon-only *ngIf="!verse.isOnFavorites" (tap)="AddVerseToFavorites(verse)">-->
+          <!--<ion-icon name="star-outline"></ion-icon>-->
+          <!--</button>-->
+
+        </div>
+
+        <ion-card [ngClass]="{'selected-shadow':verse.isSelected}">
+
+
+          <ion-card-content (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)">
+
+            <p><b>{{verse.reference}}</b></p>
+            <br>
+
+            <div [innerHtml]="verse.text">
+
+            </div>
+
+          </ion-card-content>
+
+
+        </ion-card>
+      </div>
+
+    </ng-container>
+
+
+  </ion-list>
+</ion-content>
