@@ -27,6 +27,7 @@ export class SearchPage extends VersesListComponent {
   constructor(public bibleService: BibleService,
               public vibration: Vibration,
               public socialSharingService: SocialSharingService) {
+
     super(bibleService, vibration, socialSharingService)
     this.verses = [];
     //console.log(this.verses)

@@ -19,6 +19,7 @@ import {SocialSharing} from '@ionic-native/social-sharing';
 import {SocialSharingService} from "../services/SocialSharingService";
 import {SearchPage} from "../pages/search/search";
 import {VersesListComponent} from '../components/verses-list/verses-list';
+import {FavoriteVersesPage} from "../pages/favorite-verses/favorite-verses";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {VersesListComponent} from '../components/verses-list/verses-list';
     BooksListPage,
     BookChaptersListPage,
     ChapterVersesPage,
+    FavoriteVersesPage,
     SearchPage,
     VersesListComponent
   ],
@@ -45,6 +47,7 @@ import {VersesListComponent} from '../components/verses-list/verses-list';
     BooksListPage,
     BookChaptersListPage,
     ChapterVersesPage,
+    FavoriteVersesPage,
     SearchPage,
     VersesListComponent
   ],

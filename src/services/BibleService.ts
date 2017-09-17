@@ -27,7 +27,7 @@ export class BibleService{
       let chapterId = verses[0].chapterId;
       // let ChapterVerses = await this.storage.get(chapterId);
       //update chapterVerses
-      //comment
+
       await this.storage.set(chapterId, verses);
     } catch (err) {
 
@@ -35,8 +35,47 @@ export class BibleService{
       toasty.present()
     }
 
+  }
+
+  async UpdateSingleVerse(verse) {
+
+    try {
+      let chapterId = verse.chapterId;
+      // let ChapterVerses = await this.storage.get(chapterId);
+      //update chapterVerses
+      //get previous saved verses
+      let savedVerses = await this.storage.get(chapterId);
+      let modifiedVerses = [];
+      for (let sv of savedVerses) {
+        let isModifiedVerse = sv.id == verse.id;
+        let verseToPush = isModifiedVerse ? verse : sv;
+        // if(sv.id == verse.id){
+        //   //replace verse
+        //   sv = verse;
+        //   console.log(sv)
+        // }
+
+        modifiedVerses.push(verseToPush)
+      }
+
+      // savedVerses.forEach(sv => {
+      //
+      //
+      //
+      // });
+
+
+      //save changes
+      await this.storage.set(chapterId, modifiedVerses);
+    } catch (err) {
+
+      let toasty = this.toast.create({message: err.message, duration: 3000, position: 'top'})
+      toasty.present()
+    }
 
   }
+
+
   async CacheAllVerses() {
     let test_chapter_id = 'spa-RVR1960:Gen.1';
     let cachedVerses = await this.storage.get(test_chapter_id);
@@ -90,6 +129,24 @@ export class BibleService{
 
       return this.books.filter( filterCondition);
     }
+
+  async GetFavoriteVerses() {
+
+    let favorites = [];
+    await this.storage.forEach((versesPack) => {
+      //console.log(versesPack)
+      let favsPerChapter = versesPack.filter(verse => verse.isOnFavorites == true)
+      favsPerChapter.forEach(favverse => {
+        console.log(favverse)
+        favorites.push(favverse)
+      })
+
+      // console.log(favoritedVerses)
+    });
+
+
+    return favorites;
+  }
 
 
   async searchVerses(searchterm, bookTestament) {
