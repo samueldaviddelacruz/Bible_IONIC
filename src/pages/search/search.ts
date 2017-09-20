@@ -46,12 +46,12 @@ export class SearchPage extends VersesListComponent {
 
   async searchVerses(ev) {
     this.verses = [];
-    this.searchTerm = ev.target.value;
+    //this.searchTerm = ev.target.value;
 
-    if (this.isNotNullOrEmpty(ev.target.value)) {
+    if (this.isNotNullOrEmpty(this.searchTerm)) {
 
       this.verses = [];
-      console.log(ev.target.value);
+
       let BookfilterCondition = (book) => book.testament == this.bookTestament;
 
       if (this.bookTestament == 'all') {

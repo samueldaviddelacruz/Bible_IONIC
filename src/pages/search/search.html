@@ -34,10 +34,16 @@
   <!--</ion-grid>-->
   <ion-list>
     <ion-item>
-      <ion-searchbar (ionInput)="searchVerses($event)" placeholder="Buscar.." debounce="500"></ion-searchbar>
+      <ion-input type="text" placeholder="Buscar.." [(ngModel)]="searchTerm"></ion-input>
+      <!--<ion-searchbar (ionInput)="searchVerses($event)" placeholder="Buscar.." debounce="500"></ion-searchbar>-->
 
     </ion-item>
-
+    <ion-item>
+      <button ion-button full icon-only (click)="searchVerses()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <!--<ion-searchbar (ionInput)="searchVerses($event)" placeholder="Buscar.." debounce="500"></ion-searchbar>-->
+    </ion-item>
     <ion-item>
       <ion-label>Buscar en :</ion-label>
 
@@ -86,9 +92,9 @@
 
   </ion-fab>
 
-  <ion-list [virtualScroll]="verses" [hidden]="!isNotNullOrEmpty(searchTerm)">
+  <ion-list [hidden]="!isNotNullOrEmpty(searchTerm)">
 
-    <ion-card *virtualItem="let verse" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
+    <ion-card *ngFor="let verse of verses" (press)="SelectVerse(verse)" (tap)="UnselectVerse(verse)"
               [ngClass]="{'selected-shadow':verse.isSelected}">
 
       <ion-card-content>

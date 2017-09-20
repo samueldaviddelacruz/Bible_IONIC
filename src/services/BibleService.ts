@@ -58,11 +58,6 @@ export class BibleService{
         modifiedVerses.push(verseToPush)
       }
 
-      // savedVerses.forEach(sv => {
-      //
-      //
-      //
-      // });
 
 
       //save changes
@@ -109,7 +104,8 @@ export class BibleService{
     }
 
     }
-    async getBooks(filterCondition){
+
+  async getBooks(filterCondition) {
 
 
       let booksData;
@@ -140,16 +136,13 @@ export class BibleService{
 
     let favorites = [];
     try {
+
       await this.storage.forEach((versesPack) => {
         //console.log(versesPack)
-        let favsPerChapter = versesPack.filter(verse => verse.isOnFavorites == true)
-        favsPerChapter.forEach(favverse => {
-          console.log(favverse)
-          favorites.push(favverse)
-        })
-
-        // console.log(favoritedVerses)
+        versesPack.filter(verse => verse.isOnFavorites == true)
+          .forEach(favverse => favorites.push(favverse))
       });
+
       loading.dismiss();
     } catch (error) {
       console.log(error);
@@ -165,28 +158,26 @@ export class BibleService{
 
   async searchVerses(searchterm, bookTestament) {
 
+    let loading = this.loadingCtrl.create({
+      content: 'Buscando.. Por favor Espere..'
+    });
+
+
+    loading.present();
+
     let BookfilterCondition = (book) => book.testament == bookTestament;
     this.books = await this.getBooks(BookfilterCondition);
+
+    let chapterids = this.books.map(book => book.chapters).map(chapter => chapter.id);
+
     let searchedVerses = [];
-    for (let book of this.books) {
-      let chapters = book.chapters;
 
-      for (let chap of chapters) {
-        let verses; //await this.bibleService.getVersesByChapterId(chap.id);
+    await this.storage.forEach((versesPack) => {
+      versesPack.filter(verse => chapterids.includes(verse.chapterId) && verse.cleanText.toLowerCase().includes(searchterm.toLowerCase()))
+        .forEach(searchedverse => searchedVerses.push(searchedverse))
+    });
 
-        verses = await this.getVersesByChapterId(chap.id);
-
-        for (let verse of verses) {
-
-
-          if (verse.cleanText.toLowerCase().includes(searchterm.toLowerCase())) {
-            //console.log(verse)
-            searchedVerses.push(verse);
-          }
-
-        }
-      }
-    }
+    loading.dismiss();
 
     return searchedVerses;
   }
