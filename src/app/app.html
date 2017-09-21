@@ -1,4 +1,4 @@
-<ion-menu [content]="nav">
+<ion-menu [content]="nav" persistent="true">
   <ion-header>
     <ion-navbar>
       <ion-title>
@@ -10,9 +10,68 @@
   <ion-content>
     <ion-list>
 
-      <button ion-item (click)="onLoad(homePage)">
+      <button ion-item (tap)="onLoad(homePage)">
         <ion-icon name="home" item-left></ion-icon>
         Home
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('OT')">
+        <ion-icon name="book" item-left></ion-icon>
+        Antiguo Testamento
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('NT')">
+        <ion-icon name="book" item-left></ion-icon>
+        Nuevo Testamento
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('EP')">
+        <ion-icon name="book" item-left></ion-icon>
+        El Pentateuco
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('LH')">
+        <ion-icon name="book" item-left></ion-icon>
+        Libros historicos
+      </button>
+
+
+      <button ion-item (tap)="onLoadBooks('LP')">
+        <ion-icon name="book" item-left></ion-icon>
+        Libros Poéticos
+      </button>
+
+
+      <button ion-item (tap)="onLoadBooks('PM')">
+        <ion-icon name="book" item-left></ion-icon>
+        Profetas Mayores
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('PMN')">
+        <ion-icon name="book" item-left></ion-icon>
+        Profetas Menores
+      </button>
+
+
+      <button ion-item (tap)="onLoadBooks('EV')">
+        <ion-icon name="book" item-left></ion-icon>
+        Los Evangelios
+      </button>
+
+      <button ion-item (tap)="onLoadBooks('AB')">
+        <ion-icon name="help" item-left></ion-icon>
+        Ayuda Biblica
+      </button>
+
+
+      <button ion-item (tap)="onLoad(searchPage)">
+        <ion-icon name="search" item-left></ion-icon>
+        Busqueda
+      </button>
+
+      <button ion-item (tap)="onLoad(favoritesversesPage)">
+        <ion-icon name="search" item-left></ion-icon>
+        Mis Versos Favoritos
       </button>
 
       <!--<button ion-item (click)="onLoad(settingsPage)">-->

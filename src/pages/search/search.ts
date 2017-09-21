@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {BibleService} from "../../services/BibleService";
 import {VersesListComponent} from "../../components/verses-list/verses-list";
 import {SocialSharingService} from "../../services/SocialSharingService";
@@ -24,7 +24,8 @@ export class SearchPage extends VersesListComponent {
   searchTerm: string;
 
 
-  constructor(public bibleService: BibleService,
+  constructor(public navCtrl: NavController,
+              public bibleService: BibleService,
               public vibration: Vibration,
               public socialSharingService: SocialSharingService) {
 
