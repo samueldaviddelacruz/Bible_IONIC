@@ -17,7 +17,7 @@
       </button>
     </ion-buttons>
 
-    <ion-title>Simple Reina</ion-title>
+    <ion-title text-center>Simple Reina Valera</ion-title>
 
 
   </ion-navbar>
@@ -192,19 +192,20 @@
 
   </ion-card>
 
-  <!--<ion-card tappable>-->
-    <!--<button ion-item>-->
-      <!--<ion-item  style="background: rgba(0,0,0,0);">-->
-        <!--<h2>Chef</h2>-->
-        <!--<ion-thumbnail item-center>-->
-          <!--aaa-->
-        <!--</ion-thumbnail>-->
-      <!--</ion-item>-->
-      <!--<ion-card-content>-->
-        <!--<p>Text</p>-->
-      <!--</ion-card-content>-->
-    <!--</button>-->
-  <!--</ion-card>-->
+  <ion-card (tap)="GoToHowTo()">
+
+    <button ion-item>
+
+      <ion-card-content text-center>
+        <ion-icon name="help"></ion-icon>
+        <br>
+
+        Como usar esta biblia
+      </ion-card-content>
+
+    </button>
+
+  </ion-card>
 
 
 </ion-content>

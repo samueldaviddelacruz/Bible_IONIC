@@ -20,6 +20,7 @@ import {SocialSharingService} from "../services/SocialSharingService";
 import {SearchPage} from "../pages/search/search";
 import {VersesListComponent} from '../components/verses-list/verses-list';
 import {FavoriteVersesPage} from "../pages/favorite-verses/favorite-verses";
+import {HowtoPage} from "../pages/howto/howto";
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {FavoriteVersesPage} from "../pages/favorite-verses/favorite-verses";
     ChapterVersesPage,
     FavoriteVersesPage,
     SearchPage,
+    HowtoPage,
     VersesListComponent
   ],
   imports: [
@@ -49,6 +51,7 @@ import {FavoriteVersesPage} from "../pages/favorite-verses/favorite-verses";
     ChapterVersesPage,
     FavoriteVersesPage,
     SearchPage,
+    HowtoPage,
     VersesListComponent
   ],
   providers: [

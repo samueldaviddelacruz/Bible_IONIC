@@ -4,6 +4,7 @@ import {BooksListPage} from "../books-list/books-list";
 import {BibleService} from "../../services/BibleService";
 import {SearchPage} from "../search/search";
 import {FavoriteVersesPage} from "../favorite-verses/favorite-verses";
+import {HowtoPage} from "../howto/howto";
 
 @Component({
   selector: 'page-home',
@@ -30,6 +31,10 @@ export class HomePage {
   GoToFavorites() {
 
     this.navCtrl.push(FavoriteVersesPage);
+  }
+
+  GoToHowTo() {
+    this.navCtrl.push(HowtoPage);
   }
 
 

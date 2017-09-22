@@ -10,6 +10,7 @@ import {BooksListPage} from "../pages/books-list/books-list";
 // import {ChapterVersesPage} from "../pages/chapter-verses/chapter-verses";
 import {FavoriteVersesPage} from "../pages/favorite-verses/favorite-verses";
 import {SearchPage} from "../pages/search/search";
+import {HowtoPage} from "../pages/howto/howto";
 @Component({
   templateUrl: 'app.html'
 })
@@ -29,6 +30,7 @@ export class MyApp implements OnInit{
   // chapterversesPage:any=ChapterVersesPage;
   favoritesversesPage: any = FavoriteVersesPage;
   searchPage: any = SearchPage;
+  howToPage: any = HowtoPage;
   //rootPage:any = HomePage;
 
 
